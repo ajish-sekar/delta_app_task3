@@ -28,7 +28,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_POKE + "("
-                + KEY_ID + " INTEGER PRIMARY KEY AUTO INCREMENT NOT NULL," + KEY_NAME + " TEXT NOT NULL UNIQUE,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_NAME + " TEXT NOT NULL UNIQUE,"
                 + KEY_URL + " TEXT NOT NULL" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
 
@@ -78,5 +78,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         return pokeList;
 
+    }
+    public void deleteAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_POKE);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.android.pokedex;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -82,7 +86,27 @@ public class MainActivity extends AppCompatActivity {
                 return handled;
             }
         });
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu1,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.his){
+            Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        return super.onOptionsItemSelected(item);
+    }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -374,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
                 String url = sprite.getString("front_default");
                 return new Pokemon(name,abilities,types,id,height,weight,attack,defense,hp,sp_attack,sp_defense,speed,url);
             } catch (JSONException e) {
-                Log.e("main", "Problem parsing the earthquake JSON results", e);
+                Log.e("main", "Problem parsing the JSON results", e);
             }
             return null;
         }
